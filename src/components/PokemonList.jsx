@@ -6,19 +6,21 @@ import SearchInput from './SearchInput';
 export function PokemonList() {
   const [pokemonInfo, setPokemonInfo] = useState( );
 
-  const [searchText, setSearchText] = useState('bulbasaur')
+  const [searchText, setSearchText] = useState('')
 
   useEffect(() => {
 
     if (searchText) {
-      fetch(`https://pokeapi.co/api/v2/pokemon-species/${searchText}`)
+      fetch(`https://kitsu.io/api/edge/anime?filter[text]=${searchText}&page[limit]=12`)
       .then(response => response.json())
       .then(response => {
-        setPokemonInfo(response)
+        setPokemonInfo(response.data);
       });
     }
     
   }, [searchText]);
+  console.log(pokemonInfo)
+
 
 
   return (
@@ -30,8 +32,23 @@ export function PokemonList() {
 
       {/* {searchText && !pokemonInfo && <span>Procurando...</span> } */}
       
+      {pokemonInfo && (
+        <ul className="animes-list">
+          {pokemonInfo.map((anime) => (
+            <li key={anime.id}>
+              <img
+                src={anime.attributes.posterImage.small}
+                alt={anime.attributes.canonicalTitle}
+              />
+              {anime.attributes.canonicalTitle}
+            </li>
+          ))}
+        </ul>
+      )}
 
-      {pokemonInfo !== undefined && (
+
+
+      {/* {pokemonInfo && (
         <div>
           <p><b>Nome: </b>{pokemonInfo.name}</p>
           <p><b>Color: </b>{pokemonInfo.color.name}</p>
@@ -50,7 +67,7 @@ export function PokemonList() {
             {pokemonInfo.flavor_text_entries[5].flavor_text}
           </p>
         </div>
-      )}
+      )} */}
 
     </>
   );
