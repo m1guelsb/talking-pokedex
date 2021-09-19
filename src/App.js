@@ -4,7 +4,7 @@ import { PokemonList } from './components/PokemonList';
 function App() {
   return (
     <div className="App">
-      <h1>SO OS POKEMAO PIKA</h1>
+      <h1> pokedeqis </h1>
       <PokemonList />
     </div>
   );
