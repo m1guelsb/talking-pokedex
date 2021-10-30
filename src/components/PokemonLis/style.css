@@ -1,0 +1,591 @@
+
+
+
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+  
+  height: 100vh;
+}
+
+
+
+h1{
+  font-family: 'PokemonSolid', monospace;
+  font-size: 70px;
+  letter-spacing: 5px;
+  text-align: center;
+  color: #FFCB05;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  height: 120px;
+
+  text-shadow:
+    -7px 7px 0 #3C5BA6,
+    -1px 1px 0 #3C5BA6,  
+    1px -1px 0 #3C5BA6,
+    -1px 1px 0 #3C5BA6,
+    1px 1px 0 #3C5BA6;
+
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #3C5BA6;
+}
+
+/* POKEDEX BG */
+.pokedexContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pokedexUILeft{
+  position: relative;
+  width: 305px;
+  height: 490px;
+
+  display: flex;
+
+  z-index: 1;
+
+  background-image: url(/src/assets/img//UI-BG-Right.svg);
+  background-position: 25% 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.pokedexUIRight{
+  position: relative;
+
+  width: 305px;
+  height: 432px;
+  margin-top: 56px;
+  margin-left: -3px;
+
+  display: flex;
+  justify-content: center;
+
+  z-index: 0;
+
+  background-image: url(/src/assets/img/UIRight.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.pokemonSearch{
+  position: absolute;
+  top: -55px;
+  left: 50%;
+  transform: translateX(-45%);
+	
+	font-size: 12px;
+	line-height: 15px;
+}.pokemonSearch h2 {
+  font-size: 16px;
+  text-align: center;
+  font-weight: normal;
+  text-transform: uppercase;
+
+  margin-bottom: 2px;
+}
+
+
+
+/* HEADER */
+.header {
+  display: flex;
+}
+
+.bigBlue-Btn {
+  width: 76px;
+  height: 76px;
+
+  margin-left: 26px;
+  margin-top: 10px;
+
+  background: #DEDEDE;
+  border: 1px solid #1E1E1E;
+  border-radius: 50%;
+
+  z-index: 1;
+}.innerBlue-BtnSVG {
+  margin-top: -5px;
+  border-radius: 50%;
+
+}.innerBlue-BtnSVG-GLOWING {
+  animation: blueBtnLightup 0.5s infinite alternate-reverse;
+  margin-top: -5px;
+  border-radius: 50%;
+}@keyframes blueBtnLightup {
+  from {
+    filter: brightness(1);
+  }
+  to {
+    filter: brightness(1.5);
+    box-shadow: rgba(57, 241, 255, .5) 0 0 10px , rgba(57, 241, 255, .5) 0 0 40px, rgba(57, 241, 255, 1) 0 0 80px;
+  }
+}
+
+.lilButtons{
+  display: flex;
+  gap: 5px;
+  margin-top: 5px;
+}
+.lil-Btn {
+  width: 15px;
+  height: 14px;
+
+  border-radius: 50%;
+  border: 1px solid #1E1E1E;
+
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) inset -1px -2px 1px 4px, 0px 1px 0px 0px #1e1e1e; 
+  box-shadow: rgba(0, 0, 0, 0.3) inset -1.5px -2.5px 1px 4px, 0px 1px 0px 0px #1e1e1e;
+  
+}
+
+.mainContent {
+  width: 270px;
+  margin-left: 7px;
+  margin-top: 50px;
+}
+
+.pokemonScreenContainer {
+  height: 190px;
+  margin: 25px 0;
+  background-image: url(/src/assets/img/pokemonScreenBG.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+}
+.pokemonScreen {
+  width: 167px;
+  height: 119px;
+
+  margin-top: 29px;
+
+  background: #FFFFFF;
+  border: 1px solid #1E1E1E;
+  border-radius: 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+
+  background-image: url(/src/assets/img/pokeballBG.png);
+  background-blend-mode: multiply;
+  background-size: cover;
+}
+
+.pokeLeftInfo {
+  height: 20px;
+  width: 165px;
+  padding: 2px 7px;
+  gap: 5px;
+
+  display: flex;
+  align-items: center;
+
+  font-family: 'PixelFont', monospace;
+  background-color: mediumseagreen;
+  font-size: 12px;
+  text-transform: uppercase;
+
+
+  border-radius: 5px;
+  border-top: 1px solid #1E1E1E;
+
+  background-color: #DEDEDE;
+}.pokeLeftInfo p:first-child {
+  width: 40px;
+}
+.pokeLeftInfo p:last-child {
+  text-align: center;
+  width: 100px;
+}
+
+.pokeScreenCircleContainer {
+  display: flex;
+  gap: 10px;
+}
+.pokeScreenCircle {
+  width: 15px;
+  height: 15px;
+
+  border-radius: 50%;
+
+  background: #FF002C;
+  border: 1px solid #1E1E1E;
+  align-self: flex-start;
+
+  margin-top: 10px;
+  margin-left: 50px;
+}
+
+.buttonsContainer {
+  padding: 0 20px;
+
+  display: flex;
+}
+.blackButton {
+  width: 36px;
+  height: 35px;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  background: #00312B;
+  border: 1px solid #1E1E1E;
+  border-bottom: 3px solid #1E1E1E;
+
+  box-shadow: 0px 2px 0px 0px #1e1e1e;
+
+  color: yellow;
+  font-size: 24px;
+  font-family: 'PixelFont', monospace;
+}
+.blackButtonTalking {
+  width: 36px;
+  height: 35px;
+
+  border-radius: 50%;
+  border: 1px solid #1E1E1E;
+
+  background: #676767;
+  box-shadow: rgba(0, 0, 0, 0.5) inset 0px 4px 1px -2.5px;
+
+  transform: translateY(3px);
+
+  color: black;
+  font-size: 24px;
+  font-family: 'PixelFont', monospace;
+}
+.hButton {
+  width: 40px;
+  height: 8px;
+
+  margin: -15px 5px;
+
+  border: 1px solid #1E1E1E;
+  border-radius: 6px;
+
+  box-shadow: 0px 1px 0px 0px #1e1e1e;
+}
+.greenScreen {
+  width: 82px;
+  height: 49px;
+
+  margin-top: 20px;
+  margin-left: -90px;
+
+  background: #51AE5F;
+  border: 1px solid #1E1E1E;
+  border-radius: 5px;
+  box-shadow: 0 1px 0 0 ;
+}
+
+
+.crossContainer{
+  width: 90px;
+  height: 90px;
+
+  display: flex;
+  align-items: center;
+
+  margin-left: 10px;
+}
+
+div#cross
+	{
+		width: 90px;
+		height: 90px;
+    position: relative;
+
+    transition: 0.1s;
+   
+	}
+
+	div#topcross
+	{
+		width: 30px;
+		height: 30px;
+		background-color: #222;
+
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+		display: flex;
+    justify-content: center;
+    align-items: center;
+
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+
+	}
+
+	div#leftcross
+	{
+		width: 30px;
+		height: 30px;
+		background-color: #222;
+		z-index: 1;
+
+    cursor: pointer;
+
+    box-shadow: 0 3px 0 0 ;
+
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+		
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+	}div#leftcrossDisabled {
+    width: 30px;
+		height: 30px;
+		background-color: gray;
+		z-index: 1;
+
+    cursor: pointer;
+
+    box-shadow: rgba(0, 0, 0, 0.8) inset 0px 4px 1px -2.5px;
+
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-45%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+		
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+  }
+
+	
+
+	div#rightcross
+	{
+		width: 30px;
+		height: 30px;
+		background-color: #222;
+    box-shadow: 0 3px 0 0 ;
+    cursor: pointer;
+
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(-100%, -50%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+	}div#rightcrossDisabled {
+    width: 30px;
+		height: 30px;
+		background-color: gray;
+    cursor: initial;
+
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(-100%, -42%);
+
+    box-shadow: rgba(0, 0, 0, 0.8) inset 0px 4px 1px -2.5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+  }
+
+  div#midcross
+	{
+		width: 30px;
+		height: 30px;
+		background-color: #222;
+    box-shadow: 0 3px 0 0 ;
+
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	}
+	div#botcross
+	{
+		width: 30px;
+		height: 30px;
+		background-color: #222;
+    box-shadow: 0 3px 0 0 ;
+
+
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+
+		display: flex;
+    justify-content: center;
+    align-items: center;
+
+		border-bottom-left-radius: 5px;
+
+		border-bottom-right-radius: 5px;
+
+	}
+
+	div#upT
+	{
+		width: 0;
+		height: 0;
+		border-left: 10px solid transparent;
+		border-right: 10px solid transparent;
+		border-bottom: 10px solid #111;
+	}
+
+	div#downT
+	{
+		width: 0;
+		height: 0;
+		border-left: 10px solid transparent;
+		border-right: 10px solid transparent;
+		border-top: 10px solid #111;
+
+		
+	}
+
+	div#leftT
+	{
+		width: 0;
+		height: 0;
+		border-top: 10px solid transparent;
+		border-right: 10px solid yellow;
+		border-bottom: 10px solid transparent;
+
+		
+	}
+
+	div#rightT
+	{
+		width: 0;
+		height: 0;
+		border-top: 10px solid transparent;
+		border-left: 10px solid yellow;
+		border-bottom: 10px solid transparent;
+    
+		
+	}
+
+	div#midCircle
+	{
+		width: 20px;
+		height: 20px;
+
+		
+
+		border-radius: 30px;
+		-webkit-border-radius: 30px;
+		-moz-border-radius: 30px;
+		-o-border-radius: 30px;
+
+		background: radial-gradient(#111, #222);
+		background: -webkit-radial-gradient(#111, #222);
+		background: -moz-radial-gradient(#111, #222);
+		background: -o-radial-gradient(#111, #222);
+	} 
+
+
+.midleBar {
+  position: absolute;
+  top: 10%;
+  left: 100%;
+  transform: translateX(-55%);
+}
+
+.pokeStatsScreen {
+  width: 215px;
+  height: 85px;
+  padding: 10px 30px;
+
+  font-family: 'PixelFont', monospace;
+  background-color: mediumseagreen;
+  font-size: 12px;
+	text-transform: uppercase;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background: #FFFFFF;
+  box-shadow: 0 1px;
+  border: 1px solid #1E1E1E;
+  border-radius: 5px;
+
+  margin-top: 75px;
+  margin-left: 16px;
+
+}
+.pokeStatsContainer {
+  margin-top: -3px;
+}
+.pokeStats {
+  padding: 2px 5px 0px;
+  width: 195px;
+
+  display: flex;
+  justify-content: space-between;
+  
+  border-bottom: solid 1px black;
+  border-radius: 5px;
+
+}
+.pokeType {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 15px;
+}.pokeType p {
+  width: 75px;
+  height: 18px;
+
+	font-size: 11px;
+
+  margin-top: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  border-radius: 20px;
+}

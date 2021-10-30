@@ -1,0 +1,20 @@
+input {
+  padding: 5px 10px;
+
+  text-transform: uppercase;
+  font-family: "PixelFont";
+  font-size: 12px;
+
+  color: black;
+  background-color: white;
+
+  border-radius: 5px;
+  border: 1px solid #1E1E1E;
+}input::placeholder{
+  color: black;
+  letter-spacing: -1px;
+  filter: opacity(0.5);
+  font-size: 12px;
+  text-transform: initial;
+  text-align: center;
+}

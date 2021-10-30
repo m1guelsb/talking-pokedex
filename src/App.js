@@ -1,11 +1,11 @@
-import './App.css';
-import { PokemonList } from './components/PokemonList';
+import './styles/global.css';
+import { PokemonList } from './components/PokemonLis';
+
 
 function App() {
   return (
     <div className="App">
-      <h1> pokedeqis </h1>
-      <PokemonList />
+      <PokemonList/>
     </div>
   );
 }

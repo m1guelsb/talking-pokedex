@@ -1,0 +1,34 @@
+<svg width="305" height="438" viewBox="0 0 305 438" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 23V428C1 432.971 5.02942 437 10 437H295C299.971 437 304 432.971 304 428V73.3555C304 68.3849 299.971 64.3555 295 64.3555H166.646C163.405 64.3555 160.33 62.9266 158.239 60.4503L121.732 17.1952C120.022 15.169 117.506 14 114.854 14H10C5.02942 14 1 18.0294 1 23Z" fill="#89061C" stroke="#1E1E1E" stroke-width="2"/>
+<path d="M1 10V415C1 419.971 5.02942 424 10 424H295C299.971 424 304 419.971 304 415V60.3555C304 55.3849 299.971 51.3555 295 51.3555H166.646C163.405 51.3555 160.33 49.9266 158.239 47.4503L121.732 4.19516C120.022 2.16903 117.506 1 114.854 1H10C5.02942 1 1 5.02944 1 10Z" fill="#DC0A2D" stroke="#1E1E1E" stroke-width="2"/>
+<path d="M26 15.5V402C26 404.761 28.2386 407 31 407H290C292.761 407 295 404.761 295 402V62.5" stroke="#1E1E1E"/>
+<path d="M26.0192 15.5H112.251C113.824 15.5 115.322 16.1739 116.366 17.3513L156.382 62.4853C157.236 63.4486 158.462 64 159.749 64H295V62.5C295 60.0147 292.985 58 290.5 58H160.753C159.177 58 157.677 57.3239 156.633 56.1432L117.596 11.9945C116.753 11.0414 115.547 10.4896 114.274 10.4756L32.4941 9.57689C29.0873 9.53945 26.2762 12.1595 26.0192 15.5Z" fill="#8C061D" stroke="#1E1E1E"/>
+<rect x="178" y="345" width="89" height="31" rx="4" fill="#00312B" stroke="#1E1E1E" stroke-width="2"/>
+<rect x="178" y="343" width="89" height="31" rx="4" fill="#00312B" stroke="#1E1E1E" stroke-width="2"/>
+<rect x="54" y="345" width="89" height="31" rx="4" fill="#00312B" stroke="#1E1E1E" stroke-width="2"/>
+<rect x="54" y="343" width="89" height="31" rx="4" fill="#00312B" stroke="#1E1E1E" stroke-width="2"/>
+<circle cx="247.5" cy="300.5" r="14.5" fill="#FFE314" stroke="#1E1E1E" stroke-width="2"/>
+<mask id="mask0_45:7" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="232" y="285" width="31" height="31">
+<circle cx="247.5" cy="300.5" r="14.5" fill="#28AAFD" stroke="#454545" stroke-width="2"/>
+</mask>
+<g mask="url(#mask0_45:7)">
+<circle cx="249" cy="302.5" r="14" fill="#9F8B0F"/>
+</g>
+<circle cx="247.5" cy="300.5" r="14.5" stroke="#1E1E1E" stroke-width="2"/>
+<ellipse cx="243.5" cy="295" rx="6.5" ry="6.5" fill="#FFE314"/>
+<ellipse cx="242" cy="293" rx="2.5" ry="2.5" fill="#FFF9CA"/>
+<rect x="52.5" y="276.5" width="85" height="30" rx="4.5" fill="#1E1E1E" stroke="#1E1E1E"/>
+<rect x="52.5" y="274.5" width="85" height="30" rx="4.5" fill="#DEDEDE" stroke="#1E1E1E"/>
+<line x1="95.5" y1="274" x2="95.5" y2="305" stroke="#1E1E1E"/>
+<rect x="178.5" y="250.5" width="39" height="7" rx="3.5" fill="#FF002C" stroke="#1E1E1E"/>
+<rect x="178.5" y="249.5" width="39" height="7" rx="3.5" fill="#00312B" stroke="#1E1E1E"/>
+<rect x="228.5" y="250.5" width="39" height="7" rx="3.5" fill="#1E1E1E" stroke="#1E1E1E"/>
+<rect x="228.5" y="249.5" width="39" height="7" rx="3.5" fill="#00312B" stroke="#1E1E1E"/>
+<rect x="53.5" y="176.5" width="214" height="64" rx="4.5" fill="#1E1E1E" stroke="#1E1E1E"/>
+<rect x="53.5" y="174.5" width="214" height="64" rx="4.5" fill="#28AAFD" stroke="#1E1E1E"/>
+<line x1="53" y1="206.5" x2="268" y2="206.5" stroke="black"/>
+<line x1="95.5" y1="174" x2="95.5" y2="238" stroke="black"/>
+<line x1="139.5" y1="174" x2="139.5" y2="238" stroke="black"/>
+<line x1="183.5" y1="174" x2="183.5" y2="238" stroke="black"/>
+<line x1="227.5" y1="174" x2="227.5" y2="238" stroke="black"/>
+</svg>
