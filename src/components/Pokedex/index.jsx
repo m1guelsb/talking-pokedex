@@ -6,79 +6,48 @@ import pokeballImg from '../../assets/img/pokeball.png';
 import { SearchInput } from '../SearchInput';
 
 import typeColors from '../helpers/typeColors';
-import cleanString from '../helpers/cleanString';
 import synthSpeak from '../helpers/synthSpeak';
-import randomIndex from '../helpers/randomIndex';
+import usePokeData from '../../Hooks/usePokeData';
+import Error from '../helpers/Error';
 
 
 
 
-export function PokemonList() {
+export function Pokedex() {
 
-  const [isSpeaking, setIsSpeaking] = useState(false);
 
   const [searchText, setSearchText] = useState('');
 
-  const [pokemonInfo, setPokemonInfo] = useState( );
-  const [pokemonSprite, setPokemonSprite] = useState( );
+  const { pokeInfo, error, loading } = usePokeData(searchText);
+
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const getVoice = speechSynthesis.getVoices();
+  const voiceLang = getVoice[2];
+  const synth = window.speechSynthesis;
 
   const [pokeDescriptionButtonClicked, setPokeDescriptionButtonClicked] = useState(false);
 
-  const [currentPokeIndex, setCurrentPokeIndex] = useState();
+  const [currentPokeIndex, setCurrentPokeIndex] = useState(undefined);
 
-  const getVoice = speechSynthesis.getVoices();
-  const voiceLang = getVoice[2];
-
-  let synth = window.speechSynthesis;
-  
-
-//fetch with searchText(pokemon name or n°) in the api url and pokemon data set on States
-  useEffect(() => {
-    if (searchText) {
-      fetch(`https://pokeapi.co/api/v2/pokemon/${searchText}`)
-      .then(response => response.json())
-      .then(response => {
-        setPokemonSprite(response);
-      });
-
-      fetch(`https://pokeapi.co/api/v2/pokemon-species/${searchText}`)
-      .then(response => response.json())
-      .then(response => {
-        setPokemonInfo(response);
-      });
-    }
-  }, [searchText]);
 
  
 
   //pokemon name voice output
   useEffect(() => {
-    if (pokemonInfo) {
+    if (pokeInfo) {
       //pokemon name
-      const pokemonName = [pokemonInfo.name].toString()
-      
-      // let utteranceName = new SpeechSynthesisUtterance(pokemonName)
-      // utteranceName.voice = voiceUSf;
-      // synth.speak(utteranceName);
-      synthSpeak(pokemonName, voiceLang);
+      const pokeName= [pokeInfo.pokeName].toString()
+      synthSpeak(pokeName, voiceLang);
     }
-  }, [pokemonInfo, voiceLang])
-
-  
+  }, [pokeInfo, voiceLang])
 
   //pokemon description voice output
-  function handlePokeDescription() {
-    if (pokemonInfo) {
+  function handlePokeDescriptionVoiceOutput() {
+    if (pokeInfo) {
       setIsSpeaking(true)
       setPokeDescriptionButtonClicked(true)
-    
-      //get a random description between the random numbers
-      let randomPokeDescription = pokemonInfo.flavor_text_entries.filter((textEntries) => textEntries.language.name === 'en')[randomIndex(1, 25)].flavor_text;
-
-      //filter speacials characters from the string
-      const pokemonDescription = cleanString(randomPokeDescription)
       //speak the description
-      synthSpeak(pokemonDescription, voiceLang);
+      synthSpeak(pokeInfo.pokeDescription, voiceLang);
 
       //check and set if speaking
       function isSpeakingDefiner() {
@@ -108,12 +77,12 @@ export function PokemonList() {
     if(currentPokeIndex === undefined)
       setCurrentPokeIndex(1)
     else
-      pokemonSprite && setCurrentPokeIndex(pokemonSprite.id + 1)
+      pokeInfo && setCurrentPokeIndex(pokeInfo.pokeId + 1)
       synth.cancel();
       setIsSpeaking(false);
   }
   function navPokeLeft() {
-    pokemonSprite && setCurrentPokeIndex(pokemonSprite.id - 1)
+    pokeInfo && setCurrentPokeIndex(pokeInfo.pokeId - 1)
     synth.cancel();
     setIsSpeaking(false);
   }
@@ -130,7 +99,9 @@ export function PokemonList() {
   // LOGS //////////////////////////////////////
 
 
+  if(loading) return <h1>LOADING</h1>
 
+  if(error) console.log(error)
   return (
     <>
       <main>
@@ -170,23 +141,22 @@ export function PokemonList() {
 
               <div className="mainContent">
                 <div className="pokemonScreenContainer">
-                  <div className="pokemonScreen" style={{backgroundColor: typeColors[pokemonSprite && pokemonSprite.types[0].type.name]}}>
+                  <div className="pokemonScreen" style={{backgroundColor: typeColors[pokeInfo?.pokeTypes[0].type.name]}}>
                     <img
                       src={`${
-                        pokemonSprite ? 
-                          pokemonSprite.sprites.front_default 
+                        pokeInfo ? 
+                          pokeInfo.pokeSprite
                         : 
                           pokeballImg
                       }`}
-
-                      alt={pokemonSprite && pokemonSprite.name} 
+                      alt={pokeInfo?.name}
                       height="96px"
                     />
 
                     <div className="pokeLeftInfo">
-                      <p>#{pokemonSprite && ('00' + pokemonSprite.id).slice(-3)}</p>
+                      <p>#{pokeInfo && ('00' + pokeInfo.pokeId).slice(-3)}</p>
                       <p>|</p>
-                      <p>{pokemonSprite && pokemonSprite.name}</p>
+                      <p>{pokeInfo?.pokeName}</p>
                     </div>
 
                   </div>
@@ -195,9 +165,9 @@ export function PokemonList() {
 
                 <div className="buttonsContainer">
                   <button 
-                    className={pokeDescriptionButtonClicked ? "blackButtonTalking" : "blackButton"}
+                    className={pokeDescriptionButtonClicked ? "descriptionButtonTalking" : "descriptionButton"}
                     disabled={isSpeaking ? (true) : (false)}
-                    onClick={e => (handlePokeDescription())}>
+                    onClick={e => (handlePokeDescriptionVoiceOutput())}>
                       ?
                   </button>
                   <div className="hButton"
@@ -256,40 +226,39 @@ export function PokemonList() {
               </svg>
             </div>
           </div>
-
           
-
 
           <div className="pokedexUIRight">
 
             <div className="pokemonSearch">
               <h2>Pokemon Search</h2>
               <SearchInput
-              placeholder={"Type a Pokemon Name or Nº"}
-              value={searchText}
-              onChange={(searchtxt) => setSearchText(searchtxt)}
+                placeholder={"Type a Pokemon Name or Nº"}
+                value={searchText}
+                onChange={(searchtxt) => setSearchText(searchtxt)}
               />
+              {error && <Error error={error}/>}
             </div>
 
             <div className="pokeStatsScreen">
                 <div className="pokeStatsContainer">
                 <div className="pokeStats">
-                  <p>NO. {pokemonSprite && pokemonSprite.id}</p>
-                  <p>{pokemonSprite && pokemonSprite.name}</p>
+                  <p>NO. {pokeInfo && pokeInfo.pokeId}</p>
+                  <p>{pokeInfo && pokeInfo.pokeName}</p>
                 </div>
                 <div className="pokeStats">
                   <p>height</p>
-                  <p>{`${pokemonSprite ? (pokemonSprite.height * 10) : ('')}cm`}</p>
+                  <p>{pokeInfo?.pokeHeight}cm</p>
                 </div>
                 <div className="pokeStats">
                   <p>weigh</p>
-                  <p>{`${pokemonSprite ? (pokemonSprite.weight  / 10) : ('')}kg`}</p>
+                  <p>{pokeInfo?.pokeWeight}kg</p>
                 </div>
               </div>
               
               <div className="pokeType">
-                {pokemonSprite ? 
-                  (pokemonSprite.types.map(type => {
+                {pokeInfo ? 
+                  (pokeInfo.pokeTypes.map(type => {
                     return (
                       <p 
                         key={type.type.name}

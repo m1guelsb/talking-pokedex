@@ -92,6 +92,12 @@ h1{
   text-transform: uppercase;
 
   margin-bottom: 2px;
+}.error{
+  width: 150px;
+  position: absolute;
+  left: 100%;
+  transform: translateX(-100%);
+  text-align: right;
 }
 
 
@@ -236,7 +242,7 @@ h1{
 
   display: flex;
 }
-.blackButton {
+.descriptionButton {
   width: 36px;
   height: 35px;
 
@@ -254,7 +260,7 @@ h1{
   font-size: 24px;
   font-family: 'PixelFont', monospace;
 }
-.blackButtonTalking {
+.descriptionButtonTalking {
   width: 36px;
   height: 35px;
 
