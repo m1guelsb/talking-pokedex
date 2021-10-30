@@ -48,8 +48,6 @@ export default function usePokeData(searchText) {
     }
   }, [searchText]);
 
-
-
   return {
     pokeInfo,
     error,

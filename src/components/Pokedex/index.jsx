@@ -18,7 +18,7 @@ export function Pokedex() {
 
   const [searchText, setSearchText] = useState('');
 
-  const { pokeInfo, error, loading } = usePokeData(searchText);
+  const { pokeInfo, error } = usePokeData(searchText);
 
   const [isSpeaking, setIsSpeaking] = useState(false);
   const getVoice = speechSynthesis.getVoices();
@@ -53,12 +53,10 @@ export function Pokedex() {
       function isSpeakingDefiner() {
         if (synth.speaking) {
           setIsSpeaking(true);
-          console.log('ta falano')
 
         }else {
           setIsSpeaking(false);
           setPokeDescriptionButtonClicked(false);
-          console.log('nao ta falano')
           clearInterval(speakingInterval);
         }
       } 
@@ -67,7 +65,6 @@ export function Pokedex() {
       //turn off/clear the time interval event
       setTimeout(() => {
         clearTimeout();
-        console.log('limpado')
       }, 30000);
     }
   }
@@ -96,12 +93,6 @@ export function Pokedex() {
 
 
 
-  // LOGS //////////////////////////////////////
-
-
-  if(loading) return <h1>LOADING</h1>
-
-  if(error) console.log(error)
   return (
     <>
       <main>
