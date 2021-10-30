@@ -2,9 +2,13 @@ import { useEffect, useState } from 'react';
 
 import './style.css';
 import pokeballImg from '../../assets/img/pokeball.png';
-import typeColors from '../helpers/typeColors';
 
-import {SearchInput} from '../SearchInput';
+import { SearchInput } from '../SearchInput';
+
+import typeColors from '../helpers/typeColors';
+import cleanString from '../helpers/cleanString';
+import synthSpeak from '../helpers/synthSpeak';
+import randomIndex from '../helpers/randomIndex';
 
 
 
@@ -23,7 +27,7 @@ export function PokemonList() {
   const [currentPokeIndex, setCurrentPokeIndex] = useState();
 
   const getVoice = speechSynthesis.getVoices();
-  const voiceUSf = getVoice[2];
+  const voiceLang = getVoice[2];
 
   let synth = window.speechSynthesis;
   
@@ -51,73 +55,50 @@ export function PokemonList() {
   useEffect(() => {
     if (pokemonInfo) {
       //pokemon name
-      setIsSpeaking(true)
       const pokemonName = [pokemonInfo.name].toString()
       
-      let utteranceName = new SpeechSynthesisUtterance(pokemonName)
-      utteranceName.voice = voiceUSf;
-      synth.speak(utteranceName)
-
-      function isSpeakingDefiner() {
-        if (synth.speaking) {
-
-        } else {
-          setIsSpeaking(false);
-
-        }
-      } 
-      //interval to call the speaking definer
-      let speakingInterval = setInterval((isSpeakingDefiner), 500);
-      //turn off/clear the time interval event
-      setTimeout(() => {
-        clearInterval(speakingInterval)
-        clearTimeout()
-      }, 2000);
+      // let utteranceName = new SpeechSynthesisUtterance(pokemonName)
+      // utteranceName.voice = voiceUSf;
+      // synth.speak(utteranceName);
+      synthSpeak(pokemonName, voiceLang);
     }
-  }, [pokemonInfo, synth, voiceUSf])
+  }, [pokemonInfo, voiceLang])
+
+  
 
   //pokemon description voice output
   function handlePokeDescription() {
     if (pokemonInfo) {
       setIsSpeaking(true)
       setPokeDescriptionButtonClicked(true)
-      function getRandomIndex(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min)) + min;
-      }
+    
       //get a random description between the random numbers
-      let randomPokeDescription = pokemonInfo.flavor_text_entries.filter((x) => x.language.name === 'en')[getRandomIndex(1, 25)].flavor_text;
+      let randomPokeDescription = pokemonInfo.flavor_text_entries.filter((textEntries) => textEntries.language.name === 'en')[randomIndex(1, 25)].flavor_text;
 
       //filter speacials characters from the string
-      let pokemonDescription = randomPokeDescription;
-      let findN = '\n'; //remove \n
-      let reN = new RegExp(findN, 'g');
-      pokemonDescription = pokemonDescription.replace(reN, ' ');
-      let findF = '\f'; //remove \f
-      let reF = new RegExp(findF, 'g');
-      pokemonDescription = pokemonDescription.replace(reF, ' ');
-
-      //set and speak the description
-      let utteranceDescription = new SpeechSynthesisUtterance(pokemonDescription)
-      utteranceDescription.voice = voiceUSf;
-      synth.speak(utteranceDescription)
+      const pokemonDescription = cleanString(randomPokeDescription)
+      //speak the description
+      synthSpeak(pokemonDescription, voiceLang);
 
       //check and set if speaking
       function isSpeakingDefiner() {
         if (synth.speaking) {
+          setIsSpeaking(true);
+          console.log('ta falano')
 
         }else {
           setIsSpeaking(false);
           setPokeDescriptionButtonClicked(false);
+          console.log('nao ta falano')
+          clearInterval(speakingInterval);
         }
       } 
       //interval to call the speaking definer
       let speakingInterval = setInterval((isSpeakingDefiner), 100);
       //turn off/clear the time interval event
       setTimeout(() => {
-        clearInterval(speakingInterval);
         clearTimeout();
+        console.log('limpado')
       }, 30000);
     }
   }
@@ -129,10 +110,12 @@ export function PokemonList() {
     else
       pokemonSprite && setCurrentPokeIndex(pokemonSprite.id + 1)
       synth.cancel();
+      setIsSpeaking(false);
   }
   function navPokeLeft() {
     pokemonSprite && setCurrentPokeIndex(pokemonSprite.id - 1)
     synth.cancel();
+    setIsSpeaking(false);
   }
   useEffect(() => {
     setSearchText(currentPokeIndex);
@@ -145,12 +128,7 @@ export function PokemonList() {
 
 
   // LOGS //////////////////////////////////////
-  useEffect(() => {
-    console.log('pokeIndex ' + currentPokeIndex)
-  }, [currentPokeIndex])
-  useEffect(() => {
-    console.log('searchText ' + searchText)
-  }, [searchText])
+
 
 
   return (
