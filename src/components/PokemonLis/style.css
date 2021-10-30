@@ -357,7 +357,13 @@ div#cross
 		
 		border-top-left-radius: 5px;
 		border-bottom-left-radius: 5px;
-	}div#leftcrossDisabled {
+	}div#leftcross:active {
+    background-color: gray;
+    box-shadow: rgba(0, 0, 0, 0.8) inset 0px 4px 1px -2.5px;
+    transform: translateY(-45%);
+  }
+  
+  div#leftcrossDisabled {
     width: 30px;
 		height: 30px;
 		background-color: gray;
@@ -401,26 +407,12 @@ div#cross
 
 		border-top-right-radius: 5px;
 		border-bottom-right-radius: 5px;
-	}div#rightcrossDisabled {
-    width: 30px;
-		height: 30px;
-		background-color: gray;
-    cursor: initial;
-
-    position: absolute;
-    top: 50%;
-    left: 100%;
-    transform: translate(-100%, -42%);
-
+	}div#rightcross:active {
+    background-color: gray;
     box-shadow: rgba(0, 0, 0, 0.8) inset 0px 4px 1px -2.5px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-		border-top-right-radius: 5px;
-		border-bottom-right-radius: 5px;
+    transform: translate(-100%, -42%);
   }
+
 
   div#midcross
 	{

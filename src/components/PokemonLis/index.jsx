@@ -18,15 +18,14 @@ export function PokemonList() {
   const [pokemonInfo, setPokemonInfo] = useState( );
   const [pokemonSprite, setPokemonSprite] = useState( );
 
-  const [rightButtonClicked, setRightButtonClicked] = useState(false);
-  const [leftButtonClicked, setLeftButtonClicked] = useState(false);
-
   const [pokeDescriptionButtonClicked, setPokeDescriptionButtonClicked] = useState(false);
 
   const [currentPokeIndex, setCurrentPokeIndex] = useState();
 
   const getVoice = speechSynthesis.getVoices();
   const voiceUSf = getVoice[2];
+
+  let synth = window.speechSynthesis;
   
 
 //fetch with searchText(pokemon name or n°) in the api url and pokemon data set on States
@@ -54,7 +53,7 @@ export function PokemonList() {
       //pokemon name
       setIsSpeaking(true)
       const pokemonName = [pokemonInfo.name].toString()
-      let synth = window.speechSynthesis;
+      
       let utteranceName = new SpeechSynthesisUtterance(pokemonName)
       utteranceName.voice = voiceUSf;
       synth.speak(utteranceName)
@@ -64,8 +63,7 @@ export function PokemonList() {
 
         } else {
           setIsSpeaking(false);
-          setRightButtonClicked(false)
-          setLeftButtonClicked(false)
+
         }
       } 
       //interval to call the speaking definer
@@ -76,7 +74,7 @@ export function PokemonList() {
         clearTimeout()
       }, 2000);
     }
-  }, [pokemonInfo, voiceUSf])
+  }, [pokemonInfo, synth, voiceUSf])
 
   //pokemon description voice output
   function handlePokeDescription() {
@@ -101,7 +99,6 @@ export function PokemonList() {
       pokemonDescription = pokemonDescription.replace(reF, ' ');
 
       //set and speak the description
-      let synth = window.speechSynthesis;
       let utteranceDescription = new SpeechSynthesisUtterance(pokemonDescription)
       utteranceDescription.voice = voiceUSf;
       synth.speak(utteranceDescription)
@@ -116,7 +113,7 @@ export function PokemonList() {
         }
       } 
       //interval to call the speaking definer
-      let speakingInterval = setInterval((isSpeakingDefiner), 500);
+      let speakingInterval = setInterval((isSpeakingDefiner), 100);
       //turn off/clear the time interval event
       setTimeout(() => {
         clearInterval(speakingInterval);
@@ -127,19 +124,23 @@ export function PokemonList() {
 
 
   function navPokeRight() {
-    setRightButtonClicked(true)
     if(currentPokeIndex === undefined)
       setCurrentPokeIndex(1)
     else
       pokemonSprite && setCurrentPokeIndex(pokemonSprite.id + 1)
+      synth.cancel();
   }
   function navPokeLeft() {
-    setLeftButtonClicked(true)
     pokemonSprite && setCurrentPokeIndex(pokemonSprite.id - 1)
+    synth.cancel();
   }
   useEffect(() => {
-    setSearchText(currentPokeIndex)
-  }, [currentPokeIndex])
+    setSearchText(currentPokeIndex);
+  }, [currentPokeIndex]);
+
+  useEffect(() => {
+    synth.cancel();
+  }, [searchText, synth]);
 
 
 
@@ -206,7 +207,6 @@ export function PokemonList() {
 
                     <div className="pokeLeftInfo">
                       <p>#{pokemonSprite && ('00' + pokemonSprite.id).slice(-3)}</p>
-
                       <p>|</p>
                       <p>{pokemonSprite && pokemonSprite.name}</p>
                     </div>
@@ -231,13 +231,13 @@ export function PokemonList() {
                   <div className="crossContainer">
                     <div id="cross">
                       <div
-                      id={leftButtonClicked ? "leftcrossDisabled" : "leftcross"}
-                      onClick={isSpeaking ? undefined : e => navPokeLeft()}>
+                      id={"leftcross"}
+                      onClick={e => navPokeLeft()}>
                         <div id="leftT"></div>
                       </div>
                       <div
-                      id={rightButtonClicked ? "rightcrossDisabled" : "rightcross"}
-                      onClick={isSpeaking ? undefined : e => navPokeRight()}>
+                      id={"rightcross"}
+                      onClick={e => navPokeRight()}>
                         <div id="rightT" ></div>
                       </div>
 
