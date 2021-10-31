@@ -5,17 +5,17 @@ import pokeballImg from '../../assets/img/pokeball.png';
 
 import { SearchInput } from '../SearchInput';
 
-import typeColors from '../helpers/typeColors';
-import synthSpeak from '../helpers/synthSpeak';
 import usePokeData from '../../Hooks/usePokeData';
+
 import Error from '../helpers/Error';
+import { synthSpeak } from '../helpers/HelperFunctions';
+import typeColors from '../helpers/typeColors';
+
 
 
 
 
 export function Pokedex() {
-
-
   const [searchText, setSearchText] = useState('');
 
   const { pokeInfo, error } = usePokeData(searchText);
@@ -30,15 +30,14 @@ export function Pokedex() {
   const [currentPokeIndex, setCurrentPokeIndex] = useState(undefined);
 
 
- 
 
   //pokemon name voice output
   useEffect(() => {
     if (pokeInfo) {
-      //pokemon name
-      const pokeName= [pokeInfo.pokeName].toString()
+      const pokeName = [pokeInfo?.pokeName].toString()
       synthSpeak(pokeName, voiceLang);
     }
+  
   }, [pokeInfo, voiceLang])
 
   //pokemon description voice output
@@ -61,7 +60,7 @@ export function Pokedex() {
         }
       } 
       //interval to call the speaking definer
-      let speakingInterval = setInterval((isSpeakingDefiner), 100);
+      const speakingInterval = setInterval((isSpeakingDefiner), 100);
       //turn off/clear the time interval event
       setTimeout(() => {
         clearTimeout();
@@ -74,12 +73,15 @@ export function Pokedex() {
     if(currentPokeIndex === undefined)
       setCurrentPokeIndex(1)
     else
-      pokeInfo && setCurrentPokeIndex(pokeInfo.pokeId + 1)
+      setCurrentPokeIndex(pokeInfo.pokeId = pokeInfo?.pokeId + 1)
       synth.cancel();
       setIsSpeaking(false);
   }
   function navPokeLeft() {
-    pokeInfo && setCurrentPokeIndex(pokeInfo.pokeId - 1)
+    if (currentPokeIndex !== 1 && pokeInfo){
+      setCurrentPokeIndex(pokeInfo.pokeId = pokeInfo?.pokeId - 1)
+    }
+    
     synth.cancel();
     setIsSpeaking(false);
   }
@@ -90,6 +92,8 @@ export function Pokedex() {
   useEffect(() => {
     synth.cancel();
   }, [searchText, synth]);
+
+
 
 
 
@@ -134,12 +138,12 @@ export function Pokedex() {
                 <div className="pokemonScreenContainer">
                   <div className="pokemonScreen" style={{backgroundColor: typeColors[pokeInfo?.pokeTypes[0].type.name]}}>
                     <img
-                      src={`${
+                      src={
                         pokeInfo ? 
                           pokeInfo.pokeSprite
                         : 
                           pokeballImg
-                      }`}
+                      }
                       alt={pokeInfo?.name}
                       height="96px"
                     />
@@ -161,8 +165,7 @@ export function Pokedex() {
                     onClick={e => (handlePokeDescriptionVoiceOutput())}>
                       ?
                   </button>
-                  <div className="hButton"
-                  style={{backgroundColor: "#FF002C"}}></div>
+                  <div className="hButton" style={{backgroundColor: "#FF002C"}}></div>
                   <div className="hButton" style={{backgroundColor: "#165D8A"}}></div>
 
                   <div className="greenScreen"></div>

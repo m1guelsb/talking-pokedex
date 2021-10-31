@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import cleanString from "../components/helpers/cleanString";
-import randomIndex from "../components/helpers/randomIndex";
+
+import { cleanString, randomIndex } from "../components/helpers/HelperFunctions";
 
 
 export default function usePokeData(searchText) {
@@ -15,17 +15,16 @@ export default function usePokeData(searchText) {
       fetch(`https://pokeapi.co/api/v2/pokemon/${searchText}`)
       .then(response => response.json())
       .then(response => {
-        let pokeId = response.id
-        let pokeName = response.name
-        let pokeHeight = response.height * 10
-        let pokeWeight = response.weight / 10
-        let pokeTypes = response.types
-        let pokeSprite = response.sprites.front_default
+        const pokeId = response.id
+        const pokeName = response.name
+        const pokeHeight = response.height * 10
+        const pokeWeight = response.weight / 10
+        const pokeTypes = response.types
+        const pokeSprite = response.sprites.front_default
 
         fetch(`https://pokeapi.co/api/v2/pokemon-species/${searchText}`)
         .then(response => response.json())
         .then(response => {
-
           const pokeRandomDescription = response.flavor_text_entries.filter((textEntries) => textEntries.language.name === 'en')[randomIndex(1, 25)].flavor_text;
           const pokeDescription = cleanString(pokeRandomDescription)
 

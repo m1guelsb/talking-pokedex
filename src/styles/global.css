@@ -22,7 +22,13 @@ body {
   font-family: 'PixelFont', monospace;
   font-size: 16px;
   background-image: url(/src/assets/img/pokeballBG.png);
-
+  
+  user-select: none; /* supported by Chrome and Opera */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  -webkit-user-drag: none;
 }
 
 .App {
