@@ -160,7 +160,7 @@ export default function Pokedex() {
                         ? 'descriptionButtonTalking'
                         : 'descriptionButton'
                     }
-                    disabled={isSpeaking ? true : false}
+                    disabled={isSpeaking && pokeInfo ? true : false}
                     onClick={(e) => setPokeDescriptionButtonClicked(true)}
                   >
                     ?

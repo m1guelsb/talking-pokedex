@@ -1,44 +1,62 @@
 import { useEffect, useState } from 'react';
 
-import { synthSpeak } from '../components/helpers/HelperFunctions';
+import useTimeout from './useTimeout';
 
 export default function useVoiceOutPut(pokeName, pokeDescription, synthCancel) {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const getVoice = speechSynthesis.getVoices();
   const voiceLang = getVoice[2];
-  const synth = window.speechSynthesis;
+
+  const pokeNameSynth = window.speechSynthesis;
+  const pokeDescriptionSynth = window.speechSynthesis;
 
   const [pokeDescriptionButtonClicked, setPokeDescriptionButtonClicked] =
     useState(false);
 
-  //poke name voice output
-  useEffect(() => {
+  //NAME VOICEOUTPUT
+  function pokeNameSpeak() {
     if (pokeName) {
-      synthSpeak(pokeName, voiceLang);
+      const pokeNameUtterance = new SpeechSynthesisUtterance(pokeName);
+      pokeNameUtterance.voice = voiceLang;
+      pokeNameSynth.speak(pokeNameUtterance);
     }
-    console.log(pokeName);
-  }, [pokeName, voiceLang]);
+  }
+  const { reset } = useTimeout(() => pokeNameSpeak(), 800);
+  useEffect(() => {
+    reset();
+  }, [pokeName, reset]);
 
-  //pokemon description voice output
+  //DESCRIPTION VOICE OUTPUT
   useEffect(() => {
     if (pokeDescriptionButtonClicked) {
       setIsSpeaking(true);
-      synthSpeak(pokeDescription, voiceLang);
+      const pokeDescriptionUtterance = new SpeechSynthesisUtterance(
+        pokeDescription,
+      );
+      pokeDescriptionUtterance.voice = voiceLang;
+      pokeDescriptionSynth.speak(pokeDescriptionUtterance);
 
       function isSpeakingChecker() {
-        if (synth.speaking === false) {
+        if (pokeDescriptionSynth.speaking === false) {
           setIsSpeaking(false);
           setPokeDescriptionButtonClicked(false);
           clearInterval(speakingInterval);
         }
       }
-      const speakingInterval = setInterval(isSpeakingChecker, 100);
+      const speakingInterval = setInterval(isSpeakingChecker, 5);
     }
-  }, [pokeDescriptionButtonClicked, pokeDescription, synth, voiceLang]);
+  }, [
+    pokeDescriptionButtonClicked,
+    pokeDescription,
+    voiceLang,
+    pokeDescriptionSynth,
+  ]);
 
   useEffect(() => {
-    synth.cancel();
-  }, [synthCancel, synth]);
+    setIsSpeaking(false);
+    pokeNameSynth.cancel();
+    pokeDescriptionSynth.cancel();
+  }, [synthCancel, pokeNameSynth, pokeDescriptionSynth]);
 
   return {
     isSpeaking,
