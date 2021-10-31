@@ -1,5 +1,5 @@
 # talking-pokedex
-A Pokedex with Pokemon search, pagination and voice outputs with Pokemons name and informations. Like the anime pokédex.
+A Pokedex with Pokemon search, pagination and voice outputs with Pokemons name and informations. Like the anime pokedex.
 
 ## To run the project:
 ### 1 - npm install
