@@ -3,7 +3,7 @@ import useDebounce from "../../Hooks/useDebounce";
 
 import './style.css';
 
-export const SearchInput = ({value, placeholder, onChange}) => {
+export default function SearchInput({value, placeholder, onChange}) {
   const [displayValue, setDisplayValue] = useState(value)
   const debouncedChange = useDebounce(onChange, 1000);
 
@@ -14,7 +14,7 @@ export const SearchInput = ({value, placeholder, onChange}) => {
 
   return (
     <>
-      <input
+      <input title="searchInput"
       placeholder={placeholder}
       type="search"
       value={displayValue}
