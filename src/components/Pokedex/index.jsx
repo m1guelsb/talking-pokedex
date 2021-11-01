@@ -9,6 +9,7 @@ import usePokeData from '../../Hooks/usePokeData';
 
 import Error from '../helpers/Error';
 import typeColors from '../helpers/typeColors';
+import typeHabitats from '../helpers/typeHabitats';
 
 import useVoiceOutput from '../../Hooks/useVoiceOutput';
 
@@ -35,6 +36,7 @@ export default function Pokedex() {
       setCurrentPokeIndex((pokeInfo.pokeId = pokeInfo?.pokeId - 1));
     }
   }
+
   useEffect(() => {
     setSearchText(currentPokeIndex);
   }, [currentPokeIndex]);
@@ -174,7 +176,13 @@ export default function Pokedex() {
                     style={{ backgroundColor: '#165D8A' }}
                   ></div>
 
-                  <div className="greenScreen"></div>
+                  <div
+                    className="greenScreen"
+                    style={{
+                      backgroundImage:
+                        'url(' + typeHabitats[pokeInfo?.pokeHabitat] + ')',
+                    }}
+                  ></div>
 
                   <div className="crossContainer">
                     <div id="cross">
