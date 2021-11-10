@@ -55,7 +55,7 @@ export default function usePokeData(searchText) {
             });
         })
         .catch(() => {
-          setError('pokemon not found');
+          setError('pepega pega mia pica vose erro tente novamente plebeu');
         })
         .finally(() => {
           setLoading(false);
